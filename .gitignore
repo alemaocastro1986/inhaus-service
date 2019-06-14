@@ -1,5 +1,4 @@
 node_modules
-.editorconfig
 .vscode
 .env
 .env-development
