@@ -3,7 +3,7 @@ const handle = require('express-async-handler')
 
 const routes = express.Router()
 
-// const auth = require('./app/middlewares/auth')
+const auth = require('./app/middlewares/auth')
 
 const UserController = require('./app/controllers/UserController')
 const ScheduleController = require('./app/controllers/ScheduleController')
@@ -15,6 +15,8 @@ routes.get('/', (req, res) => {
     version: '1.0.0'
   })
 })
+
+routes.use(auth)
 
 routes.post('/users', handle(UserController.store))
 
