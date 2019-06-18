@@ -18,8 +18,6 @@ class TsrCheckController {
     if (!created) {
       data.ordem_transporte = BigInt(check.ordem_transporte)
       data.transportadora = check.transportadora
-      data.placa_cavalo = check.placa_cavalo
-      data.placa_carreta = check.placa_carreta
       await data.save()
       return res.status(200).send({ message: 'Data updated' })
     } else {
