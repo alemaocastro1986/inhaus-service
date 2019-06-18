@@ -8,6 +8,7 @@ const auth = require('./app/middlewares/auth')
 const UserController = require('./app/controllers/UserController')
 const ScheduleController = require('./app/controllers/ScheduleController')
 const LoadController = require('./app/controllers/LoadController')
+const TsrCheckController = require('./app/controllers/TsrCheckController')
 
 routes.get('/', (req, res) => {
   return res.send({
@@ -18,10 +19,12 @@ routes.get('/', (req, res) => {
 
 routes.use(auth)
 
-routes.post('/users', handle(UserController.store))
+routes.post('/api/users', handle(UserController.store))
 
-routes.post('/schedules', handle(ScheduleController.store))
+routes.post('/api/schedules', handle(ScheduleController.store))
 
-routes.post('/loads', handle(LoadController.store))
+routes.post('/api/loads', handle(LoadController.store))
+
+routes.post('/api/tsrcheck', handle(TsrCheckController.store))
 
 module.exports = routes

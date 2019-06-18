@@ -1,4 +1,6 @@
-require('dotenv').config()
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env'
+})
 
 const express = require('express')
 const Youch = require('youch')
@@ -12,7 +14,7 @@ class App {
     this.express = express()
     this.router = express.Router()
     this.isDev = process.env.NODE_ENV !== 'development'
-    this.sentry()
+    // this.sentry()
     this.midlewares()
     this.routes()
     this.exeptions()
