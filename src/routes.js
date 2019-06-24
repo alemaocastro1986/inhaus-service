@@ -22,8 +22,10 @@ routes.use(auth)
 routes.post('/api/users', handle(UserController.store))
 
 routes.post('/api/schedules', handle(ScheduleController.store))
+routes.post('/api/schedules/bulk', handle(ScheduleController.storeOrUpdate))
 
 routes.post('/api/loads', handle(LoadController.store))
+routes.post('/api/loads/bulk', handle(LoadController.storeOrUpdate))
 
 routes.post('/api/tsrcheck', handle(TsrCheckController.store))
 
