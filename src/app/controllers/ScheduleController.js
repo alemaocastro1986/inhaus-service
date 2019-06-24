@@ -1,9 +1,23 @@
+/* eslint-disable no-undef */
 const { Schedule } = require('../models')
 
 const createError = require('http-errors')
 
 class ScheduleController {
   async store (req, res) {
+    let protocolo = BigInt(req.body.protocolo)
+    const [schedule, created] = await Schedule.findOrCreate({
+      where: { protocolo },
+      defaults: { ...req.body }
+    })
+    if (!created) {
+      const assign = Object.assign(schedule, req.body)
+      await assign.save()
+    }
+    return res.send(schedule)
+  }
+
+  async storeOrUpdate (req, res) {
     const schedules = req.body
 
     if (schedules.length <= 0 || !Array.isArray(schedules)) {
@@ -12,7 +26,6 @@ class ScheduleController {
 
     let bulk = []
     for (const schedule of schedules) {
-      // eslint-disable-next-line no-undef
       let protocolo = BigInt(schedule.protocolo)
       const [, created] = await Schedule.findOrCreate({
         where: { protocolo },
