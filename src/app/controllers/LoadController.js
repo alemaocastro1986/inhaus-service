@@ -5,6 +5,31 @@ const createError = require('http-errors')
 
 class LoadController {
   async store (req, res) {
+    const remessa = BigInt(req.body.remessa)
+    const protocolo = BigInt(req.body.protocolo)
+    const [load, created] = await Load.findOrCreate({
+      where: {
+        remessa,
+        protocolo,
+        item_remessa: req.body.item_remessa
+      },
+      defaults: {
+        remessa,
+        protocolo,
+        peso_liquido: parseFloat(req.body.peso_liquido).toPrecision(12),
+        ...req.body
+      }
+    })
+
+    if (!created) {
+      const loadAssign = Object.assign(load, req.body)
+      await loadAssign.save()
+    }
+
+    return res.send(load)
+  }
+
+  async storeOrUpdate (req, res) {
     const loads = req.body
 
     if (loads.length <= 0 || !Array.isArray(loads)) {
