@@ -26,7 +26,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "http-errors": "^1.7.2",
-    "sequelize": "^5.8.9",
+    "sequelize": "^5.15.1",
     "tedious": "^6.1.2",
     "youch": "^2.0.10"
   }
